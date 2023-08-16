@@ -6,7 +6,8 @@ const {
   findIndex,
   revString,
   gatherStrings,
-  binarySearch
+  binarySearch,
+  isBracketBalanced
 } = require("./recursion");
 
 describe("product", function() {
@@ -120,5 +121,17 @@ describe("binarySearch", function () {
   it("should return -1 if the value is not found", function() {
     expect(binarySearch([1, 2, 3, 4], 0)).toEqual(-1);
     expect(binarySearch([1, 2], 11)).toEqual(-1);
+  });
+});
+
+describe("isBracketBalanced", function(){
+  it("should return true", function(){
+    expect(isBracketBalanced("if(a===1) return({haha})")).toBe(true);
+    expect(isBracketBalanced("(1+<5*{4+[7/6]}>)")).toBe(true);
+  });
+
+  it("should return false", function(){
+    expect(isBracketBalanced("1+(6*8[/)]")).toBe(false);
+    expect(isBracketBalanced("8+(6/7*(5+6)")).toBe(false);
   });
 });

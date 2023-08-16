@@ -108,6 +108,58 @@ function binarySearchWithStartEnd(arr, val, start=0, end=arr.length-1){
   }
 }
 
+/** isBracketBalanced: return true if str contains balanced brackets,
+ * otherwise, return false
+ */
+function isBracketBalanced(str){
+  const openSet = new Set(["(", "[", "{", "<"]);
+  const closeSet = new Set([")","]","}",">"]);
+  const matches = {"(": ")", "[":"]","{":"}","<":">"};
+
+// helper for isBrackedBalanced: extract bracket characters from str
+
+  let result = "";
+  for(let i = 0; i < str.length; i++){
+    if(openSet.has(str.charAt(i)) ||
+    closeSet.has(str.charAt(i)))
+    result += str.charAt(i);
+  }  
+  
+  // helper for isBracketBalanced: recursive function
+  function isBalanced(arr){ // arr only contains brackets
+
+    if(arr.length === 0)
+      return true;
+    // find first closing bracket
+    let p1 = arr.findIndex(e => closeSet.has(e));
+    if (p1 === -1)
+      return false;
+
+    // starting with p1-1, go backwards to find the first cpening bracket
+    let p0 = -1;
+    for(let i = p1-1; i>=0; i--){
+      if(openSet.has(arr[i])){
+        p0 = i;
+        break;
+      }
+    }
+
+    if(p0 === -1)
+      return false;
+    if( matches[arr[p0]] !== arr[p1])
+      return false;
+    
+    arr.splice(p0, p1-p0+1);
+    return isBalanced(arr);
+  }
+
+  // invoke recursive function
+  return isBalanced(result.split(""));
+}
+
+
+
+
 module.exports = {
   product,
   longest,
@@ -116,5 +168,6 @@ module.exports = {
   findIndex,
   revString,
   gatherStrings,
-  binarySearch
+  binarySearch,
+  isBracketBalanced
 };
