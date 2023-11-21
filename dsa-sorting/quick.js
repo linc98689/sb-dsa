@@ -11,6 +11,7 @@ function pivot(arr){
 
     if(arr.every(e => e === arr[0]))
         return 0;
+
     let pvt = cpArr[0];
     let arr1 = [...cpArr.filter(e => e < pvt)];
     let arr2 = [...cpArr.filter(e => e > pvt)];
@@ -29,7 +30,7 @@ function quickSort(arr) { //recursive
         return arr;
 
     let p = pivot(arr);
-    let repeatP = arr.filter(e => e ===p).length;
+    let repeatP = arr.filter(e => e ===arr[p]).length;
     let arr1 = arr.slice(0, p);
     arr1 = quickSort(arr1);
     arr.splice(0, arr1.length, ...arr1);
